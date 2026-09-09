@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>导入到 Anywhere · Import to Anywhere</title>
+<style>
+  :root {
+    --bg: #f2f2f7;
+    --card: #ffffff;
+    --text: #1c1c1e;
+    --sub: #6c6c70;
+    --faint: #aeaeb2;
+    --chip: #f2f2f7;
+    --accent: #0a84ff;
+    --accent-press: #0066d6;
+    --err: #ff3b30;
+    --shadow: 0 8px 32px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #000000;
+      --card: #1c1c1e;
+      --text: #f2f2f7;
+      --sub: #98989d;
+      --faint: #636366;
+      --chip: #2c2c2e;
+      --shadow: 0 8px 32px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #000000; --card: #1c1c1e; --text: #f2f2f7;
+    --sub: #98989d; --faint: #636366; --chip: #2c2c2e;
+    --shadow: 0 8px 32px rgba(0,0,0,.5);
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", system-ui, sans-serif;
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+    display: flex; align-items: flex-start; justify-content: center; padding: 12vh 20px 40px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card {
+    width: 100%; max-width: 400px; background: var(--card);
+    border-radius: 24px; padding: 36px 28px 28px; box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .icon {
+    width: 72px; height: 72px; margin: 0 auto 18px; border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon:not(:has(img)) {
+    background: linear-gradient(145deg, #5e5ce6, #0a84ff);
+    box-shadow: 0 6px 18px rgba(10,132,255,.35);
+  }
+  .icon svg { width: 36px; height: 36px; }
+  .icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; display: block; }
+  .files li img.favicon { width: 22px; height: 22px; border-radius: 5px; flex: none; object-fit: cover; }
+  .files li .fname { position: absolute; left: 58px; right: 58px; text-align: left; }
+  .files li { position: relative; }
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.02em; }
+  .status { font-size: 15px; color: var(--sub); margin: 0 0 4px; line-height: 1.5; min-height: 22px; }
+  .status.err { color: var(--err); }
+  .spinner {
+    display: inline-block; width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px;
+    border: 2px solid var(--faint); border-top-color: var(--accent); border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .files { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .files li {
+    display: flex; align-items: center; gap: 10px; text-align: left;
+    background: var(--chip); border-radius: 12px; padding: 10px 14px;
+    font: 500 13.5px/1.3 ui-monospace, "SF Mono", Menlo, monospace; color: var(--text);
+  }
+  .badge {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    flex: none; font: 700 10px/1 -apple-system, system-ui, sans-serif; letter-spacing: .04em;
+    padding: 4px 7px; border-radius: 6px; color: #fff;
+  }
+  .badge.arrs { background: #30b0c7; }
+  .badge.amrs { background: #bf5af2; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 26px; padding: 15px; border-radius: 14px;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 16.5px; font-weight: 600; letter-spacing: -.01em;
+    transition: transform .12s ease, background .12s ease;
+  }
+  .btn:active { background: var(--accent-press); transform: scale(.97); }
+  .hint { font-size: 12.5px; color: var(--faint); margin: 14px 0 0; line-height: 1.6; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon" id="heroIcon">
+    <svg id="heroFallback" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/>
+    </svg>
+  </div>
+  <h1>导入到 Anywhere</h1>
+  <p class="status" id="status"><span class="spinner"></span>正在打开 Anywhere…</p>
+  <ul class="files" id="list"></ul>
+  <a class="btn" id="go" href="#">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>
+    在 Anywhere 中打开
+  </a>
+  <p class="hint">若未自动跳转，请点上方按钮。<br>未安装 Anywhere？请先从 App Store 安装。</p>
+</div>
+<script>
+// Usage: import.html?src=mitm/mock-api.amrs&src=routing/block-ads.arrs[&theme=dark|light]
+(function () {
+  var BRANCH = "main"; // change if you publish from another branch
+  var q = new URLSearchParams(location.search);
+  var theme = q.get("theme");
+  if (theme === "dark" || theme === "light")
+    document.documentElement.setAttribute("data-theme", theme);
+
+  var status = document.getElementById("status");
+  var list = document.getElementById("list");
+  var go = document.getElementById("go");
+
+  function fail(zh) {
+    status.innerHTML = zh;
+    status.classList.add("err");
+    go.classList.add("hidden");
+  }
+
+  var user = location.hostname.split(".")[0];
+  var repo = (location.pathname.match(/^\/([^\/]+)/) || [])[1];
+  if (!user || !repo || !/github\.io$/.test(location.hostname)) {
+    fail("无法从 URL 推断仓库信息，请在 import.html 中手动设置 raw base。");
+    return;
+  }
+  var rawBase = "https://raw.githubusercontent.com/" + user + "/" + repo + "/" + BRANCH + "/";
+
+  var ok = /^[\w.\-\/]+\.(arrs|amrs)$/;
+  var links = [];
+  q.getAll("src").forEach(function (s0) {
+    var s = s0.replace(/^\/+/, "");
+    if (!ok.test(s) || s.indexOf("..") !== -1) return;
+    links.push(rawBase + s);
+    var li = document.createElement("li");
+    var ext = s.slice(-4);
+    var base = s.replace(/^.*\//, "").replace(/\.(arrs|amrs)$/, "");
+    li.innerHTML = '<span class="badge ' + ext + '">' + ext.toUpperCase() + "</span>" +
+      '<span class="fname">' + base.replace(/</g, "&lt;") + "</span>";
+    list.appendChild(li);
+  });
+  if (links.length === 0) {
+    fail("缺少有效的 src 参数。用法：?src=路径/文件.amrs（可重复）");
+    return;
+  }
+
+  var deep = "anywhere://add-rule-set?" + links.map(function (u) {
+    return "link=" + encodeURIComponent(u);
+  }).join("&");
+  go.href = deep;
+  go.addEventListener("click", function () {
+    status.innerHTML = '<span class="spinner"></span>正在打开 Anywhere…';
+  });
+  setTimeout(function () { location.href = deep; }, 300);
+
+  // ---- rule-set icons: replace the download glyph with the set's own icon ----
+  var darkUI = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  function sniffMime(b64) {
+    var bin = atob(b64.slice(0, 24)), m = "";
+    if (bin.charCodeAt(0) === 0x89 && bin.charAt(1) === "P") m = "image/png";
+    else if (bin.slice(0, 3) === "GIF") m = "image/gif";
+    else if (bin.charCodeAt(0) === 0xff && bin.charCodeAt(1) === 0xd8) m = "image/jpeg";
+    else if (bin.slice(0, 4) === "RIFF" && bin.slice(8, 12) === "WEBP") m = "image/webp";
+    return m ? "data:" + m + ";base64," : "";
+  }
+  function extractIcon(text) {
+    // header lines look like:  icon-light, iVBORw0KGgo...
+    var key = darkUI ? "icon-dark" : "icon-light";
+    var m = text.match(new RegExp("^" + key + "\\s*=\\s*(\\S+)\\s*$", "mi"));
+    if (!m && key === "icon-dark") m = text.match(/^icon-light\s*=\s*(\S+)\s*$/mi);
+    if (!m) return null;
+    try { return sniffMime(m[1]) + m[1]; } catch (e) { return null; }
+  }
+  var hero = document.getElementById("heroIcon");
+  var heroDone = false;
+  links.forEach(function (u, i) {
+    fetch(u).then(function (r) { return r.text(); }).then(function (text) {
+      var data = extractIcon(text);
+      if (!data) return;
+      var lis = list.children;
+      if (lis[i]) {
+        var img = document.createElement("img");
+        img.className = "favicon";
+        img.src = data;
+        lis[i].insertBefore(img, lis[i].firstChild);
+      }
+      if (!heroDone) {
+        heroDone = true;
+        var fb = document.getElementById("heroFallback");
+        if (fb) fb.remove();
+        var big = document.createElement("img");
+        big.src = data;
+        big.alt = "";
+        hero.appendChild(big);
+      }
+    }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>
