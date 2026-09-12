@@ -1,0 +1,52 @@
+# 酷狗概念版拦截 (Routing)
+# 拦截酷狗概念版 (KuGou Concept Edition) 关联的第三方广告SDK、数据采集与追踪域名。
+# 包含腾讯广点通(GDT)、腾讯音乐广告、腾讯SDK追踪、酷狗数据采集等。
+# 配套MITM规则集 KuGouConceptBlockAD.amrs 清空App内广告API响应。
+# 此规则集需在App中分配为 Reject 动作。
+
+name = 酷狗概念版拦截
+routing = 2
+
+2, gdt.qq.com
+2, gdtimg.com
+2, pgdt.gtimg.cn
+
+2, ad.tencentmusic.com
+2, adcdn6.tencentmusic.com
+2, report.tencentmusic.com
+
+2, tmeadcomm.y.qq.com
+2, tmead.y.qq.com
+2, sdkreport.e.qq.com
+
+2, adsfile.kugou.com
+2, adservice.kugou.com
+2, mdpfilebssdlbig.kugou.com
+
+2, webcollects.kugou.com
+2, rtwebcollects.kugou.com
+2, nbcollect.kugou.com
+2, mobilelog.kugou.com
+2, sentry.kugou.com
+2, tracker.kugou.com
+2, bsstrackercdngz.kugou.com
+
+2, tangram.e.qq.com
+2, huatuocode.huatuo.qq.com
+2, wup.imtt.qq.com
+2, rmonitor.qq.com
+2, snowflake.qq.com
+2, gatherer.m.qq.com
+2, tdid.m.qq.com
+2, shiply-adelie.shiply-cdn.qq.com
+2, cloud.tgpa.qq.com
+2, tpstelemetry.tencent.com
+2, data.ab.qq.com
+2, iosqqdata.ab.qq.com
+2, wspeed.qq.com
+2, rdelivery.qq.com
+2, ads.privacy.qq.com
+
+2, tfogc.com
+2, log2.cmpassport.com
+2, config2.cmpassport.com
