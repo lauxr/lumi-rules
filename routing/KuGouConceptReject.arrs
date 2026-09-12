@@ -1,8 +1,6 @@
 # 酷狗概念版拦截 (Routing)
 # 拦截酷狗概念版 (KuGou Concept Edition) 关联的第三方广告SDK、数据采集与追踪域名。
 # 包含腾讯广点通(GDT)、腾讯音乐广告、腾讯SDK追踪、酷狗数据采集等。
-# 配套MITM规则集 KuGouConceptBlockAD.amrs 清空App内广告API响应。
-# 此规则集需在App中分配为 Reject 动作。
 
 name = 酷狗概念版拦截
 routing = 2
