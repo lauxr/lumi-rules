@@ -7,3 +7,4 @@ hostname = gateway.kugou.com
 
 [Rule]
 0, 100, ^https?://gateway\.kugou\.com/(?:ads\.gateway|adservice)/, ZnVuY3Rpb24gcHJvY2VzcyhjdHgpIHsKICBBbnl3aGVyZS5yZXNwb25kKHsKICAgIHN0YXR1czogMjAwLAogICAgaGVhZGVyczogW1siQ29udGVudC1UeXBlIiwgImFwcGxpY2F0aW9uL2pzb24iXV0sCiAgICBib2R5OiAiZXlKemRHRjBkWE1pT2pFc0ltVnljbTl5WDJOdlpHVWlPakFzSW1SaGRHRWlPbnQ5ZlE9PSIKICB9KTsKfQo=
+0, 100, ^https?://gateway\.kugou\.com/youth/v\d+/(?:listen_song|free_package)/upgrade_ad_list(?:\?|$), ZnVuY3Rpb24gcHJvY2VzcyhjdHgpIHsKICBBbnl3aGVyZS5yZXNwb25kKHsKICAgIHN0YXR1czogMjAwLAogICAgaGVhZGVyczogW1siQ29udGVudC1UeXBlIiwgImFwcGxpY2F0aW9uL2pzb24iXV0sCiAgICBib2R5OiAiZXlKbGNuSnZjbDl0YzJjaU9pSWlMQ0prWVhSaElqcDdJbWhoYzJoZmRYQm5jbUZrWlNJNk1Dd2lZV1JmYkdsemRDSTZXMTBzSW5Wd1ozSmhaR1ZmYzJsbmJpSTZNSDBzSW5OMFlYUjFjeUk2TVN3aVpYSnliM0pmWTI5a1pTSTZNSDA9IgogIH0pOwp9Cg==
