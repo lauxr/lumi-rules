@@ -1,0 +1,33 @@
+# 酷狗概念版 去广告 · 域名路由拦截（KugouConceptReject.arrs）
+# 作用：在路由层直接拒绝（REJECT）广告 SDK 与广告素材域名——腾讯 GDT 广告联盟、腾讯音乐 TME 广告、
+#       酷狗自有广告服务与广告素材 CDN。被拒域名不会建立连接，因此无需 MITM 证书即可生效。
+# 导入后请确认本规则集的动作为「拒绝 / REJECT」（routing = 2 仅在首次导入时生效）。
+# 配套：gateway.kugou.com 上与主接口同域的广告位接口无法在此拦截，需配合 KugouConceptBlockAD.amrs。
+
+name = 酷狗概念版去广告
+routing = 2
+
+# ---- 腾讯 GDT 广告联盟（v/rpt/vr/ii/xsweb/ipv4.gdt.qq.com 等全部覆盖）----
+2, gdt.qq.com
+2, gdtimg.com
+2, pgdt.gtimg.cn
+2, p.l.qq.com
+2, ads.privacy.qq.com
+
+# ---- 腾讯音乐 TME 广告服务 ----
+2, ad.tencentmusic.com
+2, adcdn6.tencentmusic.com
+2, tmead.y.qq.com
+2, tmeadcomm.y.qq.com
+
+# ---- 酷狗自有广告服务 / 广告素材 CDN ----
+2, adservice.kugou.com
+2, adsfile.bssdlbig.kugou.com
+
+# ---- 如需一并屏蔽行为统计（可选，取消注释即可）----
+# 2, nbcollect.kugou.com
+# 2, webcollects.kugou.com
+# 2, rtwebcollects.kugou.com
+# 2, mobilelog.kugou.com
+# 2, bsstrackercdngz.kugou.com
+# 2, install2.kugou.com
