@@ -18,6 +18,10 @@ hostname = gateway.kugou.com, adservice.kugou.com
 # ---- 搜索页无焦点推荐广告 ----
 1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_search_no_focus(?:\?|$), replace-recursive, ads, "{}"
 
+# ---- 搜索页顶部轮播 banner（内容位接口，仅命中 biz=youth_search_banner）----
+1, 5, ^https?://gateway\.kugou\.com/goddess/v1/content/biz_list\?.*\bbiz=youth_search_banner(?:&|$), add, $.data.list, "[]"
+1, 5, ^https?://gateway\.kugou\.com/goddess/v1/content/biz_list\?.*\bbiz=youth_search_banner(?:&|$), add, $.data.has_next, 0
+
 # ---- 会员中心广告位（两个入口返回的结构键名不同，统一清空 ads 对象）----
 1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_vip_center(?:\?|$), replace-recursive, ads, "{}"
 1, 5, ^https?://gateway\.kugou\.com/adservice/v2/lite_v_vip_center(?:\?|$), replace-recursive, ads, "{}"
