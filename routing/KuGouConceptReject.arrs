@@ -30,3 +30,34 @@ routing = 2
 2, adservice.kugou.com
 2, adsfile.kugou.com
 2, adsfile.bssdlbig.kugou.com
+
+# ---- 第三方广告监测白名单（mobilelog.kugou.com/adtrackconfig.json 下发，带回传 IDFA/IMEI/MAC）----
+2, admaster.com.cn
+2, miaozhen.com
+2, gxb.cnzz.com
+2, ctrmi.com
+2, gentags.net
+2, serving-sys.com
+2, trafficjam.cn
+2, cr-nielsen.com
+2, in-neo.cn
+2, doubleclick.net
+2, tanx.com
+2, ictr.cn
+2, gridsumdissector.com
+2, tj-adc.wtzw.com
+2, reachmax.cn
+2, ipinyou.com
+2, rtbasia.com
+2, mdfull.com
+2, upst86.com
+2, yoyi.com.cn
+2, mookie1.cn
+2, xtgreat.com
+2, 365dmp.com
+2, mobrtb.com
+2, xelements.cn
+2, pangolin-dsp-toutiao.com
+2, chinavivaki.com
+2, beijing-hyundai.com.cn
+2, ghac.cn
