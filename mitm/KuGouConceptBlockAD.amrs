@@ -6,25 +6,25 @@ icon-light = iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAIAAABoJHXvAAAw7UlEQVR42u29e7Bl2Vk
 hostname = gateway.kugou.com, adservice.kugou.com
 
 [Rule]
-1, 5, ^https?://gateway\.kugou\.com/ads\.service/v2/lite_v_splash(?:\?|$), replace-recursive, ads, "[]"
+1, 5, ^https?://gateway\.kugou\.com/ads\.service/v2/lite_v_splash(?:\?|$), add, $.data.ads, "[]"
 
-1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_popup(?:\?|$), replace-recursive, ads, "[]"
+1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_popup(?:\?|$), add, $.data.ads, "[]"
 
-1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_youth_home_banner(?:\?|$), replace-recursive, ads, "{}"
+1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_youth_home_banner(?:\?|$), add, $.data.ads, "{}"
 
-1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_search_no_focus(?:\?|$), replace-recursive, ads, "{}"
+1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_search_no_focus(?:\?|$), add, $.data.ads, "{}"
 
 1, 5, ^https?://gateway\.kugou\.com/goddess/v1/content/biz_list\?.*\bbiz=youth_search_banner(?:&|$), add, $.data.list, "[]"
 1, 5, ^https?://gateway\.kugou\.com/goddess/v1/content/biz_list\?.*\bbiz=youth_search_banner(?:&|$), add, $.data.has_next, 0
 
-1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_vip_center(?:\?|$), replace-recursive, ads, "{}"
-1, 5, ^https?://gateway\.kugou\.com/adservice/v2/lite_v_vip_center(?:\?|$), replace-recursive, ads, "{}"
+1, 5, ^https?://gateway\.kugou\.com/ads\.gateway/v2/lite_v_vip_center(?:\?|$), add, $.data.ads, "{}"
+1, 5, ^https?://gateway\.kugou\.com/adservice/v2/lite_v_vip_center(?:\?|$), add, $.data.ads, "{}"
 
-1, 5, ^https?://adservice\.kugou\.com/v2/lite_v_youth_player_widget(?:\?|$), replace-recursive, ads, "{}"
+1, 5, ^https?://adservice\.kugou\.com/v2/lite_v_youth_player_widget(?:\?|$), add, $.data.ads, "{}"
 
-1, 5, ^https?://gateway\.kugou\.com/youth/v1/listen_song/upgrade_ad_list(?:\?|$), replace-recursive, ad_list, "[]"
+1, 5, ^https?://gateway\.kugou\.com/youth/v1/listen_song/upgrade_ad_list(?:\?|$), add, $.data.ad_list, "[]"
 
-1, 5, ^https?://gateway\.kugou\.com/concepts/v1/free_mode/info(?:\?|$), replace-recursive, ad_list, "[]"
+1, 5, ^https?://gateway\.kugou\.com/concepts/v1/free_mode/info(?:\?|$), add, $.data.upgrade_ad.ad_list, "[]"
 1, 5, ^https?://gateway\.kugou\.com/concepts/v1/free_mode/info(?:\?|$), add, $.data.upgrade_ad.show_upgrade, 0
 
 1, 5, ^https?://gateway\.kugou\.com/youth/api/user/v1/init(?:\?|$), add, $.data.ad.flash, 0
