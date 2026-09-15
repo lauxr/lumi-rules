@@ -61,3 +61,6 @@ routing = 2
 2, chinavivaki.com
 2, beijing-hyundai.com.cn
 2, ghac.cn
+
+# ---- 广点通 H5 SDK 资源（H5 页广告位依赖，tangram-common-api）----
+2, xsweb.gdt.qq.com
