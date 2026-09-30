@@ -9,5 +9,5 @@
 | Emby 直连 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=routing/EmbyDirect.arrs) |
 | 快捷搜索 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=mitm/QuickSearch.amrs) |
 | 123云盘去广告 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=mitm/123PanBlockAD.amrs) |
-| 酷狗概念版广告拦截 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=routing/KuGouConceptReject.arrs) |
-| 酷狗概念版去广告 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=mitm/KuGouConceptBlockAD.amrs) |
+| 酷狗概念版广告拦截 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=routing/KuGouYouthReject.arrs) |
+| 酷狗概念版去广告 | [![导入](https://img.shields.io/badge/Anywhere-导入-0a84ff)](https://lauxr.github.io/lumi-rules/import.html?src=mitm/KuGouYouthBlockAD.amrs) |
