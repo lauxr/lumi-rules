@@ -80,6 +80,7 @@
   }
   .badge.arrs { background: #30b0c7; }
   .badge.amrs { background: #bf5af2; }
+  .badge.amod { background: #ff9f0a; }
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     margin-top: 26px; padding: 15px; border-radius: 14px;
@@ -135,32 +136,49 @@
   }
   var rawBase = "https://raw.githubusercontent.com/" + user + "/" + repo + "/" + BRANCH + "/";
 
-  var ok = /^[\w.\-\/]+\.(arrs|amrs)$/;
-  var links = [];
+  var ok = /^[\w.\-\/]+\.(arrs|amrs|amod)$/;
+  var items = []; // { url, ext, base }
   q.getAll("src").forEach(function (s0) {
     var s = s0.replace(/^\/+/, "");
     if (!ok.test(s) || s.indexOf("..") !== -1) return;
-    links.push(rawBase + s);
-    var li = document.createElement("li");
     var ext = s.slice(-4);
-    var base = s.replace(/^.*\//, "").replace(/\.(arrs|amrs)$/, "");
-    li.innerHTML = '<span class="badge ' + ext + '">' + ext.toUpperCase() + "</span>" +
-      '<span class="fname">' + base.replace(/</g, "&lt;") + "</span>";
-    list.appendChild(li);
+    var base = s.replace(/^.*\//, "").replace(/\.(arrs|amrs|amod)$/, "");
+    items.push({ url: rawBase + s, ext: ext, base: base });
   });
-  if (links.length === 0) {
-    fail("缺少有效的 src 参数。用法：?src=路径/文件.amrs（可重复）");
+  if (items.length === 0) {
+    fail("缺少有效的 src 参数。用法：?src=路径/文件.amod（可重复）");
     return;
   }
 
-  var deep = "anywhere://add-rule-set?" + links.map(function (u) {
-    return "link=" + encodeURIComponent(u);
-  }).join("&");
-  go.href = deep;
-  go.addEventListener("click", function () {
-    status.innerHTML = '<span class="spinner"></span>正在打开 Anywhere…';
+  // One link per deep link (taken verbatim after ?link=); .amod uses add-module.
+  function deepLink(u, ext) {
+    var scheme = ext === "amod" ? "add-module" : "add-rule-set";
+    return "anywhere://" + scheme + "?link=" + u;
+  }
+
+  items.forEach(function (it) {
+    var li = document.createElement("li");
+    li.innerHTML = '<span class="badge ' + it.ext + '">' + it.ext.toUpperCase() + "</span>" +
+      '<span class="fname">' + it.base.replace(/</g, "&lt;") + "</span>";
+    if (items.length > 1) {
+      // multiple files: each row is its own import button
+      li.style.cursor = "pointer";
+      li.addEventListener("click", function () { location.href = deepLink(it.url, it.ext); });
+    }
+    list.appendChild(li);
   });
-  setTimeout(function () { location.href = deep; }, 300);
+
+  if (items.length === 1) {
+    var deep = deepLink(items[0].url, items[0].ext);
+    go.href = deep;
+    go.addEventListener("click", function () {
+      status.innerHTML = '<span class="spinner"></span>正在打开 Anywhere…';
+    });
+    setTimeout(function () { location.href = deep; }, 300);
+  } else {
+    go.classList.add("hidden");
+    status.innerHTML = "点上方条目逐个导入";
+  }
 
   // ---- rule-set icons: replace the download glyph with the set's own icon ----
   var darkUI = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -182,8 +200,8 @@
   }
   var hero = document.getElementById("heroIcon");
   var heroDone = false;
-  links.forEach(function (u, i) {
-    fetch(u).then(function (r) { return r.text(); }).then(function (text) {
+  items.forEach(function (it, i) {
+    fetch(it.url).then(function (r) { return r.text(); }).then(function (text) {
       var data = extractIcon(text);
       if (!data) return;
       var lis = list.children;
